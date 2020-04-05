@@ -1,0 +1,380 @@
+﻿<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121890130-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-121890130-1');
+</script>
+
+<title>My Portfolio</title>
+<!--mobile apps-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Brajesh Kumar,Anmol Kumar, Girjesh Kumar, Facebook, brajesh , brajesh sharma, brajeshkr18@gmail.com" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--mobile apps-->
+<!--Custom Theme files-->
+<link href="Assets/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+<link href="Assets/css/style.css" type="text/css" rel="stylesheet" media="all">
+<link rel="stylesheet" href="Assets/css/swipebox.css">
+<!--//Custom Theme files-->
+<!--js-->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
+<!-- //js -->
+<!--web-fonts-->
+<link href='//fonts.googleapis.com/css?family=Overlock:400,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<!--//web-fonts-->
+<!--start-smooth-scrolling-->
+<script type="text/javascript" src="Assets/js/move-top.js"></script>
+<script type="text/javascript" src="Assets/js/easing.js"></script>	
+<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$(".scroll").click(function(event){		
+				event.preventDefault();
+				$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+			});
+		});
+</script>
+
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWGwLcpn0gyOWRicmVrENPTXV91J9gJxU&libraries=places"></script>
+    <style>
+        .container {
+            max-width: 980px;
+            text-align: center;
+            margin: 20px auto;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        #geocoding_form {
+            margin: 40px auto 40px;
+        }
+
+        .input-group {
+            margin-left: 4%;
+        }
+
+        .find-me.btn:focus {
+            border-color: transparent;
+            outline: 0;
+        }
+
+        .coordinates {
+            font-size: 18px;
+            opacity: 0;
+            margin-bottom: 40px;
+        }
+
+        .no-browser-support {
+            font-size: 18px;
+            opacity: 0;
+        }
+
+        .coordinates b:first-child {
+            margin-right: 15px;
+        }
+
+        .visible {
+            opacity: 1;
+        }
+
+        .map-overlay {
+            max-width: 600px;
+            height: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            position: relative;
+            border-radius: 2px;
+        }
+
+        .btn-overlay {
+            max-width: 600px;
+           
+            position: relative;
+            border-radius: 2px;
+        }
+
+        #map {
+           
+            height: 100%;
+            margin: 0 auto;
+        }
+    </style>
+<!--//end-smooth-scrolling-->
+</head>
+
+	<body onload="initMap()">
+        <div class="container">
+
+            <h2>Trip Track</h2>
+
+
+
+            <p class="no-browser-support">Sorry, the Geolocation API isn't supported in Your browser.</p>
+            <p class="coordinates">Latitude: <b class="latitude">42</b> Longitude: <b class="longitude">32</b></p>
+            <form id="geocoding_form" class="form-horizontal btn-overlay">
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-6 col-md-offset-3">
+                        <button type="button" class="find-me btn btn-info btn-block">Start</button>
+                    </div>
+                </div>
+            </form>
+            <div class="map-overlay">
+
+                <div id="map"></div>
+            </div>
+            <form id="geocoding_form" class="form-horizontal btn-overlay">
+                <div class="form-group">
+                    <div class="col-xs-12 col-md-6 col-md-offset-3">
+                        <button type="button" class="btn-route btn btn-info btn-block">Route</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+   
+	<div class="footer">
+		<div class="container">
+			<p>© 2017 My Resume. | Designed by <a href="http://Hospitalmgmt.somee.com" target="_blank">  Hospitalmgmt.somee.com</a></p>
+		</div>
+	</div>
+	 <script>
+        var stuff = [];
+
+
+        var findMeButton = $('.find-me');
+        var findRouteButton = $('.btn-route');
+        var isStart = 1;
+        // Check if the browser has support for the Geolocation API
+
+        findMeButton.on('click', function (e) {
+
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+
+                });
+            } else {
+                console.log("Browser doesn't support geolocation!");
+            }
+            //isStart=1;
+            btnclick()
+            if (isStart) {
+                $(".find-me").html("Stop")
+                isStart = 0
+            }
+            else {
+                $(".find-me").html("Start")
+                isStart = 1
+            }
+        });
+        findRouteButton.on('click', function (e) {
+            drawRoute();
+        });
+        function btnclick() {
+
+            geocoder = new google.maps.Geocoder();
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+            }
+            //Get the latitude and the longitude;
+            function successFunction(position) {
+                var lat = position.coords.latitude;
+                var lng = position.coords.longitude;
+                codeLatLng(lat, lng)
+            }
+
+            function errorFunction() {
+                alert("Geocoder failed");
+            }
+
+
+
+            function codeLatLng(lat, lng) {
+                var currentloc = ""
+                var latlng = new google.maps.LatLng(lat, lng);
+                
+                geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        console.log(results)
+                        if (results[1]) {
+                            //formatted address
+                            currentloc = results[0].formatted_address;
+                            <!-- alert(results[0].formatted_address) -->
+							var dt = new Date();
+                          //  var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+							var pos = { lat: lat, lng: lng ,address:currentloc,time:dt.toString()};
+							stuff.push(pos);
+                            //find country name
+                            for (var i = 0; i < results[0].address_components.length; i++) {
+                                for (var b = 0; b < results[0].address_components[i].types.length; b++) {
+
+                                    //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
+                                    if (results[0].address_components[i].types[b] == "administrative_area_level_1") {
+                                        //this is the object you are looking for
+                                        city = results[0].address_components[i];
+                                        break;
+                                    }
+                                }
+                            }
+
+                            //alert(city.short_name + " " + city.long_name)
+
+
+                        } else {
+                            alert("No results found");
+                        }
+                    } else {
+                        alert("Geocoder failed due to: " + status);
+                    }
+                    infoWindow = new google.maps.InfoWindow({ map: map });
+                    var pos = { lat: lat, lng: lng };
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent("Found your location <br /> : " + currentloc);
+                    map.panTo(pos);
+                 
+                });
+            }
+        }
+        
+        function drawRoute() {
+
+            var obj = {};
+
+            var MapPoints = []
+            //  var MapPoints = '[{"address":{"address":"plac Grzybowski, Warszawa, Polska","lat":"52.2360592","lng":"21.002903599999968"},"title":"Warszawa"}, {"address":{"address":"Jana Paw\u0142a II, Warszawa, Polska","lat":"52.2179967","lng":"21.222655600000053"},"title":"Wroc\u0142aw"}, {"address":{"address":"Wawelska, Warszawa, Polska","lat":"52.2166692","lng":"20.993677599999955"},"title":"O\u015bwi\u0119cim"}]';
+
+            //["{"address":{"address":"plac Grzybowski, Warszawa, …6","lng":"77.40706879999993"},"title":"Warszawa"}", "{"address":{"address":"plac Grzybowski, Warszawa, …6","lng":"77.40706879999993"},"title":"Warszawa"}", "{"address":{"address":"plac Grzybowski, Warszawa, …6","lng":"77.40706879999993"},"title":"Warszawa"}", "{"address":{"address":"plac Grzybowski, Warszawa, …6","lng":"77.40706879999993"},"title":"Warszawa"}", "{"address":{"address":"plac Grzybowski, Warszawa, …6","lng":"77.40706879999993"},"title":"Warszawa"}", "{"address":{"address":"plac Grzybowski, Warszawa, …6","lng":"77.40706879999993"},"title":"Warszawa"}"]
+            debugger;
+            $.each(stuff, function (key, val) {
+                // var MapPoi = '{"address":{"address":"plac Grzybowski, Warszawa, Polska","lat":"' + stuff[key].lat() + '","lng":"' + stuff[key].lng() + '"},"title":"Warszawa"}';
+                //  var MapPoi = { "address": '{ "address": "plac Grzybowski, Warszawa, Polska", "lat": "' + stuff[key].lat() + '", "lng": "' + stuff[key].lng() + '" }', "title": "Warszawa" };
+                var MapPoi = {
+                    address: '{ "address": "plac Grzybowski, Warszawa, Polska", "lat": "' + stuff[key].lat + '", "lng": "' + stuff[key].lng + '" }',
+                    lat: '' + stuff[key].lat + '',
+                    lng: '' + stuff[key].lng + '',
+                    title: '' + stuff[key].address + '',
+                };
+                <!-- var MapPoi1 = { -->
+                    <!-- address: '{ "address": "plac Grzybowski, Warszawa, Polska", "lat": "' + stuff[key].lat() + '", "lng": "' + stuff[key].lng() + '" }', -->
+                    <!-- lat: "52.2360592", -->
+                    <!-- lng: "21.002903599999968", -->
+                    <!-- title: "dc" -->
+                <!-- }; -->
+                MapPoints.push(MapPoi)
+                <!-- MapPoints.push(MapPoi1) -->
+            });
+            //$.each(MapPoints, function (key, val) {
+            //    debugger;
+            //    MapPoints[key].replace();
+            //});
+
+
+            debugger
+            var locations = MapPoints
+            // var locations = jQuery.parseJSON(MapPoints);
+
+            window.map = new google.maps.Map(document.getElementById('map'), {
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                scrollwheel: false
+            });
+
+            var infowindow = new google.maps.InfoWindow();
+            var flightPlanCoordinates = [];
+            var bounds = new google.maps.LatLngBounds();
+
+            for (i = 0; i < locations.length; i++) {
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locations[i].lat, locations[i].lng),
+                    map: map
+                });
+                flightPlanCoordinates.push(marker.getPosition());
+                bounds.extend(marker.position);
+
+                google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                    return function () {
+                        infowindow.setContent(locations[i]['title']);
+                        infowindow.open(map, marker);
+                    }
+                })(marker, i));
+            }
+
+            map.fitBounds(bounds);
+
+            var flightPath = new google.maps.Polyline({
+                map: map,
+                path: flightPlanCoordinates,
+                strokeColor: "#FF0000",
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+            });
+
+        }
+
+    </script>
+    <script type="text/javascript">
+        var map;
+        function initMap() {
+            var mapCenter = new google.maps.LatLng(47.6145, -122.3418); //Google map Coordinates
+            map = new google.maps.Map($("#map")[0], {
+                center: mapCenter,
+                zoom: 8
+            });
+        }
+
+
+    </script>
+
+    
+      
+	<!--//footer-->
+	<!--smooth-scrolling-of-move-up-->
+	<script type="text/javascript">
+		$(document).ready(function() {
+		
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+			};
+			
+			$().UItoTop({ easingType: 'easeOutQuart' });
+			
+		});
+	</script>
+	<!--//smooth-scrolling-of-move-up-->
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="Assets/js/bootstrap.js"></script>
+	<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5b3dc8d64af8e57442dc5a30/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+
+</html>
